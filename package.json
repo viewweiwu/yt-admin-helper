@@ -10,22 +10,16 @@
 		"Snippets"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onLanguage:vue"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"snippets": [
-				{
-						"language": "vue-html",
-						"path": "./snippets.json"
-				}
-		],
-    "capabilities" : {
-        "completionProvider" : {
-            "resolveProvider": "true",
-            "triggerCharacters": [ "" ]
-        }
-    }
+			{
+					"language": "vue",
+					"path": "./snippets.json"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
