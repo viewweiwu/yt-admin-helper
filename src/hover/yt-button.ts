@@ -1,11 +1,9 @@
 const hoverTip = `
-**yt-button**
-
 \`\`\`html
 <yt-button>按钮名字</yt-button>
 \`\`\`
 
-**常用属性**
+**常用属性(props)**
 
 |参数|说明|类型|可选值|默认值|
 |-|-|-|-|-|

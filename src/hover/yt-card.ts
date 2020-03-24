@@ -1,6 +1,4 @@
 const hoverTip = `
-**yt-card**
-
 \`\`\`html
 <yt-card header="卡片标题">
     <span>这里是卡片内容。</span>
