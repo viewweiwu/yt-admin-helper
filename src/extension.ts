@@ -1,19 +1,28 @@
 import * as vscode from 'vscode';
+import YtSearchTable from './hover/yt-search-table';
+import YtButton from './hover/yt-button';
+import YtCard from './hover/yt-card';
+
+const components = [
+	YtSearchTable,
+	YtButton,
+	YtCard
+];
+
 class VueHoverProvider implements vscode.HoverProvider {
 	public provideHover(
 			document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken):
 			Thenable<vscode.Hover> {
 		return new Promise((resolve, reject) => {
-			return resolve(new vscode.Hover([
-				`
-- nihao
-- wobuzhidao
-## 333
-\`\`\`javascript
-let a = 1
-\`\`\`
-				`
-			]));
+			// 获取到选取的文本
+			const word = document.getText(document.getWordRangeAtPosition(position));
+			// 遍历是否又单词匹配
+			components.forEach(component => {
+				if (component.categories.includes(word)) {
+					resolve(new vscode.Hover(component.hoverTip));
+				}
+			});
+			reject();
 		});
 	}
 }

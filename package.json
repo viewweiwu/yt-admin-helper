@@ -16,7 +16,7 @@
 	"contributes": {
 		"snippets": [
 			{
-					"language": "vue",
+					"language": "vue-html",
 					"path": "./snippets.json"
 			}
 		]
