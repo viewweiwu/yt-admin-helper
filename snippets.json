@@ -1,0 +1,56 @@
+{
+	"yt-search-table": {
+		"prefix": "yt-search-table",
+		"body": [
+			"<yt-search-table",
+			"\tref=\"table\"",
+			"\t:fields=\"fields\"",
+			">",
+			"</yt-search-table>"
+		],
+		"description": "带查询框表格"
+	},
+	"yt-dialog-form": {
+		"prefix": "yt-dialog-form",
+		"body": [
+			"<yt-dialog-form",
+			"\tref=\"form\"",
+			"\tname=\"$1\"",
+			"\t:fields=\"fields\"",
+			"\t:isDialogForm=\"true\"",
+			"\t:addApi=\"addApi\"",
+			"\t:updateApi=\"updateApi\"",
+			"/>"
+		],
+		"description": "弹窗式表单"
+	},
+	"yt-icon": {
+		"prefix": "yt-icon",
+		"body": [
+			"<yt-icon icon=\"$1\" />"
+		]
+	},
+	"yt-form": {
+		"prefix": "yt-form",
+		"body": [
+			"<yt-form",
+			"\tref=\"form\"",
+			"\t:fields=\"fields\"",
+			"/>"
+		]
+	},
+	"yt-button": {
+		"prefix": "yt-button",
+		"body": [
+			"<yt-button @click=\"handleClick\">$1</yt-button>"
+		]
+	},
+	"yt-card": {
+		"prefix": "yt-card",
+		"body": [
+			"<yt-card header=\"$1\">",
+			"\t$2",
+			"</yt-card>"
+		]
+	}
+}
