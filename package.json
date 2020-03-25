@@ -14,6 +14,12 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"commands": [
+			{
+				"command": "extension.createPage",
+				"title": "Create Page"
+			}
+		],
 		"snippets": [
 			{
 					"language": "vue-html",
