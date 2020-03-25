@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 import YtSearchTable from './hover/yt-search-table';
 import YtButton from './hover/yt-button';
 import YtCard from './hover/yt-card';
@@ -57,8 +58,9 @@ function CreateYtAdminAutoPage (context: vscode.ExtensionContext) {
 				enableScripts: true
 			} // Webview选项。我们稍后会用上
 		);
+		
 		// 设置HTML内容
-		currentPanel.webview.html = getWebviewContent()
+		currentPanel.webview.html = getWebviewContent(context)
 		
 		currentPanel.onDidDispose(
 			() => {
@@ -70,7 +72,21 @@ function CreateYtAdminAutoPage (context: vscode.ExtensionContext) {
 	}
 }
 
-function getWebviewContent ():string {
+function getWebviewContent (context: vscode.ExtensionContext):string {
+	// 获取磁盘上的资源路径
+	let mainjsPath = vscode.Uri.file(
+		path.join(context.extensionPath, 'page', 'main.js')
+	);
+	// 获取在webview中使用的特殊URI
+	let mainjs = mainjsPath.with({ scheme: 'vscode-resource' });
+	// 获取磁盘上的资源路径
+	let stylePath = vscode.Uri.file(
+		path.join(context.extensionPath, 'page', 'style.css')
+	);
+	// 获取在webview中使用的特殊URI
+	const style = stylePath.with({ scheme: 'vscode-resource' });
+
+
   return `
 	<!DOCTYPE html>
 	<html lang="en">
@@ -78,19 +94,11 @@ function getWebviewContent ():string {
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<title>Cat Coding</title>
+			<link rel="stylesheet" href="${style}" />
 	</head>
 	<body>
-			<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" width="300" />
-			<h1 id="lines-of-code-counter">0</h1>
-
-			<script>
-					const counter = document.getElementById('lines-of-code-counter');
-
-					let count = 0;
-					setInterval(() => {
-							counter.textContent = count++;
-					}, 100);
-			</script>
+		<header>cool</header>	
+		<script src="${mainjs}"></script>
 	</body>
 	</html>
 	`;
