@@ -4,13 +4,15 @@ import YtButton from './hover/yt-button';
 import YtCard from './hover/yt-card';
 import YtCtrl from './hover/yt-ctrl';
 import YtDialog from './hover/yt-dialog';
+import YtDialogForm from './hover/yt-dialog-form';
 
 const components = [
 	YtSearchTable,
 	YtButton,
 	YtCard,
 	YtCtrl,
-	YtDialog
+	YtDialog,
+	YtDialogForm
 ];
 
 class VueHoverProvider implements vscode.HoverProvider {
@@ -21,11 +23,15 @@ class VueHoverProvider implements vscode.HoverProvider {
 			// 获取到选取的文本
 			const word = document.getText(document.getWordRangeAtPosition(position));
 			// 遍历是否又单词匹配
+			let hoverList:Array<string> = [];
 			components.forEach(component => {
 				if (component.categories.includes(word)) {
-					resolve(new vscode.Hover(component.hoverTip));
+					hoverList.push(component.hoverTip);
 				}
 			});
+			if (hoverList.length) {
+				resolve(new vscode.Hover(hoverList));
+			}
 			reject();
 		});
 	}

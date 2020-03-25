@@ -13,9 +13,9 @@ const hoverTip = `
 |disabled|按钮会变成不可点击。|Boolean|-|false|
 
 另外支持 el-button 的所有属性。
-`
+`;
 
 export default {
   hoverTip,
-  categories: ['button']
-}
+  categories: ['button', 'auth']
+};

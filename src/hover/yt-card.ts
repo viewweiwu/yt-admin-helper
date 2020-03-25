@@ -27,9 +27,9 @@ const hoverTip = `
 |-|:-|
 |after|插在头部标题后面，紧跟着文字。|
 |right|插在头部右侧，跟文字分离。|
-`
+`;
 
 export default {
   hoverTip,
   categories: ['card']
-}
+};

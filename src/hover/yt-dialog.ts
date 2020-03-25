@@ -35,9 +35,9 @@ const hoverTip = `
 - 确定按钮点击后并不会自己关闭弹窗😂。
 - 记得做 loading 事件。
 - 如果没有确定按钮，那么关闭按钮会自动高亮。
-`
+`;
 
 export default {
   hoverTip,
   categories: ['dialog']
-}
+};

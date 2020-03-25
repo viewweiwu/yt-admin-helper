@@ -25,10 +25,10 @@ render: (h, { row }) => {
 - 当按钮 yt-ctrl-item 数量多于 4 个时候，第四个按钮会变成更多，剩下的会变成下拉选项。
 - confirm primary 基本上配套使用，做删除时经常在一起，如果加上 tip 会更加自由。
 
-`
+`;
 
 
 export default {
   hoverTip,
-  categories: ['ctrl', 'item']
-}
+  categories: ['ctrl', 'item', 'auth']
+};
