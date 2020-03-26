@@ -52,5 +52,24 @@
 			"\t$2",
 			"</yt-card>"
 		]
+	},
+	"yt-input-number": {
+		"prefix": "yt-input-number",
+		"body": [
+			"<yt-input-number v-model=\"$1\" />"
+		]
+	},
+	"yt-tree": {
+		"prefix": "yt-tree",
+		"body": [
+			"<yt-tree",
+			"\tref=\"tree\"",
+			"\t:treeData=\"treeData\"",
+			"\t:defaultProps=\"{ label: 'menuname', value: 'menucode' }\"",
+			"\t:hasFilter=\"true\"",
+			"\t:hasExpandBtn=\"true\"",
+			"\t:hasRefreshBtn=\"true\"",
+			"/>"
+		]
 	}
 }
