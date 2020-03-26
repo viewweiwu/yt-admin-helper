@@ -5,6 +5,7 @@ import YtCard from './hover/yt-card';
 import YtCtrl from './hover/yt-ctrl';
 import YtDialog from './hover/yt-dialog';
 import YtDialogForm from './hover/yt-dialog-form';
+import Field from './hover/field';
 
 const components = [
 	YtSearchTable,
@@ -12,7 +13,8 @@ const components = [
 	YtCard,
 	YtCtrl,
 	YtDialog,
-	YtDialogForm
+	YtDialogForm,
+	Field
 ];
 
 class VueHoverProvider implements vscode.HoverProvider {

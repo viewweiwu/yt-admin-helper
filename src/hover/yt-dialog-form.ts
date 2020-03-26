@@ -28,8 +28,7 @@ const hoverTip = `
 |hasConfirm|是否有确定按钮。|Boolean|-|true|
 |isDefaultShow|是否默认展示 fileds 项目，设置了此属性会优先取 fields 的 dialog 参数。|Boolean|-|-|
 
-
-**事件(events)**
+**方法(methods)**
 
 |参数|说明|参数|
 |-|-|-|
