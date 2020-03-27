@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="ctrls">
+      <div class="ctrls-item">重置页面</div>
+      <div class="ctrls-item">设置接口地址</div>
+    </div>
+    <div class="search">
+      <div class="form-item" v-for="field in searchFileds" :key="field.key">
+        <span class="form-item-label">{{ field.title }}:</span>
+        <span class="form-item-content select">
+          <span>{{ field | placeholder }}</span>
+          <span class="popper">
+            <ul>
+              <li>选项1</li>
+              <li>选项2</li>
+              <li>选项3</li>
+              <li>选项4</li>
+            </ul>
+          </span>
+        </span>
+      </div>
+      <div class="form-item search-btns">
+        <button class="btn primary">查询</button>
+        <button class="btn">重置</button>
+      </div>
+    </div>
+    <div class="table">
+      <div class="table-header">
+        <button class="btn primary">新增用户</button>
+      </div>
+      <table class="main-table" border="1" cellpadding="0" cellspacing="0">
+        <thead>
+          <tr>
+            <th v-for="field in fields" :key="field.title">
+              <span class="table-add">
+                +
+                <span class="table-add-tooltip">在这里添加一列</span>
+              </span>
+              <div class="table-cell" v-if="field.table && field.table.type === 'selection'">
+                <div class="checkbox"></div>
+              </div>
+              <div class="table-cell" v-else>{{ field.title }}</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="row in tableData" :key="row.id">
+            <td v-for="field in fields" :key="field.key">
+              <div class="table-cell" v-if="field.table && field.table.type === 'selection'">
+                <div class="checkbox"></div>
+              </div>
+              <div class="table-cell" v-else>{{ row[field.key] }}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="./axios.min.js"></script>
+  <script src="./vue.min.js"></script>
+  <script src="./main.js"></script>
+</body>
+</html>
