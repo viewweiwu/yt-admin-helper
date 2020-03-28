@@ -39,7 +39,9 @@ let fields = [
     title: '用户类型',
     key: 'type',
     type: 'select',
-    options: [],
+    options: [
+      { label: '1', value: 1 }
+    ],
     optionsKey: 'userType',
     search: {
       order: 4
@@ -167,10 +169,10 @@ let fields = [
       width: 280,
       render: (h, { row }) => {
         // return <yt-ctrl>
-        //     <yt-ctrl-item /* auth={this.prefix + 'user-update'} */ type="text" onClick={ () => this.handleUpdate(row) }>修改</yt-ctrl-item>
-        //     <yt-ctrl-item /* auth={this.prefix + 'user-role'} */ type="text" onClick={ () => this.handleRoleEdit(row) }>分配角色</yt-ctrl-item>
-        //     <yt-ctrl-item confirm primary={ row.realName + `(重置后密码: ${this.config.default_password})` } tip="重置" type="text" onClick={ () => this.handleReset(row) }>重置密码</yt-ctrl-item>
-        //     <yt-ctrl-item /* auth={this.prefix + 'user-delete'} */ confirm primary={ row.realName } type="text" onClick={ () => this.handleRowDelete(row) }>删除</yt-ctrl-item>
+        //     <yt-ctrl-item /* auth={this.prefix + 'user-update'} */ onClick={ () => this.handleUpdate(row) }>修改</yt-ctrl-item>
+        //     <yt-ctrl-item /* auth={this.prefix + 'user-role'} */ onClick={ () => this.handleRoleEdit(row) }>分配角色</yt-ctrl-item>
+        //     <yt-ctrl-item confirm primary={ row.realName + `(重置后密码: ${this.config.default_password})` } tip="重置" onClick={ () => this.handleReset(row) }>重置密码</yt-ctrl-item>
+        //     <yt-ctrl-item /* auth={this.prefix + 'user-delete'} */ confirm primary={ row.realName } onClick={ () => this.handleRowDelete(row) }>删除</yt-ctrl-item>
         //     <yt-ctrl-item /* auth={this.prefix + 'user-delete'} */ onClick={ () => this.handleLog(row) }>历史记录</yt-ctrl-item>
         // </yt-ctrl>;
       }
@@ -490,6 +492,300 @@ let tableData = [
   }
 ];
 
+window.Vue.component('h-icon', {
+  props: {
+    icon: {
+      type: String,
+      default: ''
+    }
+  },
+  template: `<i class="iconfont" :class="\`icon-\${icon}\`"></i>`
+});
+
+window.Vue.component('h-options', {
+  props: {
+    options: {
+      type: Array,
+      default: () => []
+    }
+  },
+  template: `
+    <div class="h-options">
+      <p>
+        <el-tag v-for="(option, i) in options" :key="option.value" closable @close="options.splice(i, 1)">
+          {{ option.label }}
+          【{{ option.value }}】
+        </el-tag>
+      </p>
+      <el-button size="small" icon="el-icon-plus">新增选项</el-button>
+      <p>
+        <el-button size="small" icon="el-icon-plus" @click="pushRandomOptions">随便来几个选项</el-button>
+      </p>
+    </div>
+  `,
+  methods: {
+    pushRandomOptions () {
+      let options = [
+        { label: '臭豆腐', value: 1 },
+        { label: '腐乳', value: 2 },
+        { label: '柠檬', value: 3 }
+      ];
+      this.options.push(...options);
+    }
+  }
+});
+
+const defaultFiled = {
+  title: '',
+  key: '',
+  type: 'input',
+  hasSearch: false,
+  hasDialog: false,
+  searchTitle: '',
+  searchKey: '',
+  searchType: '',
+  dialogTitle: '',
+  dialogKey: '',
+  dialogType: ''
+};
+
+const copy = (obj) => {
+  return JSON.parse(JSON.stringify(obj));
+};
+
+const fieldOptions = [
+  { value: 'input', label: '输入框' },
+  { value: 'select', label: '选择框' },
+  { value: 'input-number', label: '数字输入框' },
+  { value: 'checkbox-group', label: '选择框' },
+  { value: 'radio-group', label: '单选框' },
+  { value: 'date', label: '日期' },
+  { value: 'daterange', label: '日期组' },
+  { value: 'cascader', label: '级联框' },
+  { value: 'switch', label: '开关' },
+  { value: 'slider', label: '滑块' },
+];
+
+const getFiledOption = () => {
+  return fieldOptions.map(option => {
+    return {
+      value: option.value,
+      text: option.label + ' ' + option.value
+    };
+  });
+};
+
+window.Vue.component('h-form', {
+  props: {
+    fields: {
+      type: Array,
+      default: () => []
+    },
+    index: {
+      type: Number,
+      default: 0
+    }
+  },
+  data () {
+    return {
+      formList: [
+        {
+          title: '标题(title)',
+          key: 'title',
+          type: 'input',
+          props: {
+            placeholder: '你也许需要一个标题'
+          }
+        },
+        {
+          title: 'key',
+          key: 'key',
+          type: 'input',
+          props: {
+            placeholder: '请输入 key'
+          }
+        },
+        {
+          title: '类型(type)',
+          key: 'type',
+          type: 'select',
+          options: getFiledOption(),
+          props: {
+            placeholder: '请选择类型'
+          }
+        },
+        {
+          title: '选项(options)',
+          key: 'options',
+          type: 'input',
+          props: {
+            type: 'textarea',
+            placeholder: 'label,value\nlabel2,value2'
+          }
+        },
+        {
+          title: '',
+          key: 'hasSearch',
+          type: 'checkbox',
+          text: '是否需要查询'
+        },
+        {
+          render: (h) => {
+            return h('div', { class: 'form-dividder' }, '要补充查询信息吗？');
+          },
+          isShow: (form) => {
+            return form.hasSearch;
+          }
+        },
+        {
+          title: '查询标题',
+          key: 'searchTitle',
+          type: 'input',
+          props: {
+            placeholder: '跟随父级'
+          },
+          isShow: (form) => {
+            return form.hasSearch;
+          }
+        },
+        {
+          title: '查询 key',
+          key: 'searchKey',
+          type: 'input',
+          props: {
+            placeholder: '跟随父级'
+          },
+          isShow: (form) => {
+            return form.hasSearch;
+          }
+        },
+        {
+          title: '查询类型',
+          key: 'searchType',
+          type: 'select',
+          options: getFiledOption(),
+          props: {
+            placeholder: '跟随父级'
+          },
+          isShow: (form) => {
+            return form.hasSearch;
+          }
+        },
+        {
+          title: '',
+          key: 'hasDialog',
+          type: 'checkbox',
+          text: '是否需要弹窗'
+        },
+        {
+          render: (h) => {
+            return h('div', { class: 'form-dividder' }, '要补充弹窗信息吗？');
+          },
+          isShow: (form) => {
+            return form.hasDialog;
+          }
+        },
+        {
+          title: '标题',
+          key: 'dialogTitle',
+          type: 'input',
+          props: {
+            placeholder: '跟随父级'
+          },
+          isShow: (form) => {
+            return form.hasDialog;
+          }
+        },
+        {
+          title: 'key',
+          key: 'dialogKey',
+          type: 'input',
+          props: {
+            placeholder: '跟随父级'
+          },
+          isShow: (form) => {
+            return form.hasDialog;
+          }
+        },
+        {
+          title: '类型',
+          key: 'dialogType',
+          type: 'select',
+          options: getFiledOption(),
+          props: {
+            placeholder: '跟随父级'
+          },
+          isShow: (form) => {
+            return form.hasDialog;
+          }
+        }
+      ]
+    };
+  },
+  template: `<iview-form ref="form" lib="element" :label-width="120" :formList="formList" @submit="handleSubmit" />`,
+  methods: {
+    handleSubmit (form) {
+      let submitForm = {};
+      if (form.title) {
+        submitForm.title = form.title;
+      }
+      if (form.key) {
+        submitForm.key = form.key;
+      }
+      if (form.type) {
+        submitForm.type = form.type;
+      }
+      if (form.hasSearch) {
+        submitForm.search = {};
+        submitForm.search.title = form.title;
+      }
+      submitForm.options = form.options.split('\n').map(item => {
+        let option = item.split(',');
+        return {
+          label: (option[0] || '').trim(),
+          value: (option[1] || '').trim()
+        }
+      })
+      this.fields[this.index].pop = false;
+      this.$refs.form.reset();
+      this.fields.splice(this.index, 0, submitForm);
+      this.$nextTick(() => {
+        this.fields[this.index].pop = true;
+      });
+    }
+  }
+});
+
+window.Vue.component('h-confirm', {
+  props: {
+    title: String
+  },
+  data () {
+    return {
+      visible: false
+    };
+  },
+  template: `
+  <el-popover
+    placement="top"
+    width="160"
+    v-model="visible">
+    <p class="confirm-title"><i class="el-icon-info" style="color: red;"></i> {{ title }}</p>
+    <div style="text-align: right; margin: 0">
+      <el-button size="mini" type="text" @click="visible = false">别</el-button>
+      <el-button type="danger" size="mini" @click="handleConfirm">是的</el-button>
+    </div>
+    <slot slot="reference"></slot>
+  </el-popover>
+  `,
+  methods: {
+    handleConfirm () {
+      this.visible = false;
+      this.$emit('confirm');
+    }
+  }
+});
+
 let Main = {
   data() {
     return {
@@ -498,66 +794,29 @@ let Main = {
       tableData
     };
   },
-  filters: {
-    placeholder (field) {
-      let select = ['select', 'org', 'cascader', 'date', 'daterange', 'datetimerange'].includes(field.type) ? '选择' : '输入';
-      return `请${select}${field.title}`;
+  filters: {},
+  computed: {
+    searchFields () {
+      return this.fields.filter(item => item.search).map(item => {
+        let field = {
+          ...item,
+          ...item.search
+        };
+        if (field.type === 'org') {
+          field.type = 'cascader';
+        }
+        return field;
+      });
     }
   },
-  computed: {
-    searchFileds () {
-      return this.fields.filter(item => item.search);
+  methods: {
+    handleDelete (i) {
+      this.fields.splice(i, 1);
+    },
+    getPlaceholder (field) {
+      let select = ['select', 'org', 'cascader', 'date', 'daterange', 'datetimerange'].includes(field.type) ? '选择' : '输入';
+      return `请${select}${field.title}`;
     }
   }
 };
 new window.Vue(Main).$mount('#app');
-
-const prefix = 'http://122.112.221.198:8081/tlmp';
-const ajax = axios.create({
-  timeout: 15000 // 请求超时时间
-});
-const transformURL = (config) => {
-  config.url = prefix + config.url;
-  return config;
-};
-const transformPost = (config) => {
-  if (config.data && config.data.transform) {
-      delete config.data.transform;
-      config.transformRequest = [
-          function (data) {
-              let ret = '';
-              for (const it in data) {
-                  ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&';
-              }
-              return ret;
-          }
-      ];
-  }
-  return config;
-};
-const addToken = (config) => {
-    // whiteList 不加入 token
-    const whiteList = [
-        '/j_spring_security_check'
-    ];
-    if (whiteList.some(url => config.url.includes(url))) {
-        return config;
-    }
-    // 添加token
-    const token = 'Yatop eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ5YXRvcCIsInVzZXJOYW1lIjoidmlld3dlaXd1IiwicmVhbE5hbWUiOiJ3dyIsInRpbWVzdGFtcCI6MTU4NTA0MTM0NTUyMiwibG9jYXRpb24iOiJNVGd6TGpFeU9TNHhOVE11TmpjPSIsIm9yZ0NvZGUiOiI3Nzc3Nzc3NzciLCJvcmdOYW1lIjoiKirpk7booYwifQ.Qsa40A0MNjmFw64-BE28DBeSHRkUteZMIMj0TMrs4tS7sPPWNj-OCNdHwvKf9C_icIEY6oV3QjACZ1--F06jYw';
-    if (token && !config.headers.Authorization) {
-        config.headers.Authorization = `${token}`;
-    }
-
-    return config;
-};
-// 请求拦截处理
-ajax.interceptors.request.use(config => {
-    transformPost(config);
-    transformURL(config);
-    addToken(config);
-    return config;
-}, error => Promise.reject(error));
-
-ajax.get('/sysUser/listByPage');
-
