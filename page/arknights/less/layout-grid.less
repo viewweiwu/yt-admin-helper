@@ -1,0 +1,27 @@
+.layout-grid {
+  top: 50%;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  transform: translateY(-50%);
+}
+
+.layout-grid-content {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.layout-grid-item {
+  width: 200px;
+  height: 200px;
+  border: 1px solid #fff;
+  flex-shrink: 0;
+
+  & + & {
+    margin-left: @space;
+  }
+}

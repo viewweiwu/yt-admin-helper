@@ -744,8 +744,8 @@ window.Vue.component('h-form', {
         return {
           label: (option[0] || '').trim(),
           value: (option[1] || '').trim()
-        }
-      })
+        };
+      });
       this.fields[this.index].pop = false;
       this.$refs.form.reset();
       this.fields.splice(this.index, 0, submitForm);
@@ -808,6 +808,8 @@ let Main = {
         return field;
       });
     }
+  },
+  mounted () {
   },
   methods: {
     handleDelete (i) {
