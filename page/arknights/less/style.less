@@ -25,14 +25,16 @@ body {
   cursor: pointer;
 
   .iconfont {
-    text-shadow: 0 .2em 4px @fade-white;
+    text-shadow: 0 .2em 4px fadeout(@fade-white, 20%);
   }
 
-  &:hover {
+  &:hover,
+  &.active {
     color: @black;
     background-color: @fade-white-hover;
+
     .iconfont {
-      text-shadow: 0 .4em 5px @black;
+      text-shadow: 0 .4em 5px fadeout(@fade-black, 20%);
     }
   }
 
@@ -40,4 +42,40 @@ body {
     color: @black;
     background-color: @fade-white-active;
   }
+}
+
+.form-item {
+  display: flex;
+  margin: 12px 0;
+  align-items: center;
+
+  .item-tip {
+    border-left: 1px solid @black;
+    padding-left: @space;
+    margin-left: @space2;
+    opacity: .6;
+  }
+
+  .item-label {
+    width: 7em;
+    flex-shrink: 0;
+  }
+
+  .item-content {
+    width: 300px;
+    flex-shrink: 0;
+  }
+}
+
+.form-title {
+  padding-top: @space3;
+  margin: 0;
+  font-size: 18px;
+}
+
+input {
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  background-color: @bg-black-fade;
 }

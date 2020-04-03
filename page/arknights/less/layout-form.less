@@ -3,19 +3,22 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  padding: 10vh 10vw;
+  padding: 10vh 5vw;
   backdrop-filter: blur(10px);
   z-index: 1;
   color: black;
-  background-color: rgba(255, 255, 255, .1);
+  background-color: @bg-white-fade;
   position: absolute;
 }
 
 .layout-form-header {
   padding: 0 @space;
   border-bottom: @space / 2 solid #fff;
+  box-shadow: 0 20px 20px -20px @black;
+  z-index: 1;
   display: flex;
   align-items: center;
+  position: relative;
   
   .header-title {
     height: 50px;
@@ -40,7 +43,15 @@
 }
 
 .layout-form-main {
-  padding: @space2 10%;
+  padding-left: 10%;
   flex: 1;
   background-color: @fade-white;
+  overflow: auto;
+  scroll-snap-type: y;
+  scroll-snap-points-y: repeat(100%);
+}
+
+.form-wrap {
+  height: 100%;
+  scroll-snap-align: start;
 }
