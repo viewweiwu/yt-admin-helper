@@ -17,6 +17,13 @@ function getLayoutGridTemplate() {
       </div>
     </div>
   </div>
+  <div class="layout-grid-ctrl">
+    <div class="ctrl-item" v-for="item in 20">
+      <button class="ctrl-item-btn">
+        <a-icon icon="plus"></a-icon>
+      </button>
+    </div>
+  </div>
 </div>
   `;
 }

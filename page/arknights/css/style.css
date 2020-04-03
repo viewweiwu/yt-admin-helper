@@ -7,3 +7,7 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
 }
+.btn-back {
+  width: 60px;
+  text-align: left;
+}

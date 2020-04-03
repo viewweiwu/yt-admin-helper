@@ -7,3 +7,37 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+.btn-back {
+  width: 60px;
+  margin: 0 @space;
+  text-align: left;
+  cursor: pointer;
+}
+
+.btn {
+  width: 120px;
+  height: 50px;
+  color: #fff;
+  border: 1px solid @white;
+  .flex();
+  user-select: none;
+  cursor: pointer;
+
+  .iconfont {
+    text-shadow: 0 .2em 4px @fade-white;
+  }
+
+  &:hover {
+    color: @black;
+    background-color: @fade-white-hover;
+    .iconfont {
+      text-shadow: 0 .4em 5px @black;
+    }
+  }
+
+  &:active {
+    color: @black;
+    background-color: @fade-white-active;
+  }
+}

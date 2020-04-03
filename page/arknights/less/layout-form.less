@@ -1,0 +1,46 @@
+.layout-form {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 10vh 10vw;
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  color: black;
+  background-color: rgba(255, 255, 255, .1);
+  position: absolute;
+}
+
+.layout-form-header {
+  padding: 0 @space;
+  border-bottom: @space / 2 solid #fff;
+  display: flex;
+  align-items: center;
+  
+  .header-title {
+    height: 50px;
+    padding: 0 @space2;
+    margin-left: @space;
+    background-color: #fff;
+    .flex();
+  }
+}
+
+.layout-form-container {
+  height: ~'calc(100% - 100px)';
+  display: flex;
+}
+
+.layout-form-tab {
+  margin: @space2;
+
+  .tab-item + .tab-item {
+    margin-top: @space;
+  }
+}
+
+.layout-form-main {
+  padding: @space2 10%;
+  flex: 1;
+  background-color: @fade-white;
+}
