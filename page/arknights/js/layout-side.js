@@ -1,12 +1,12 @@
 let LayoutSide = {
   name: 'layout-side',
-  template: getLayoutSideTemplate()
+  template: getLayoutSideTemplate(),
 };
 
 window.Vue.component(LayoutSide.name, LayoutSide);
 
 function getLayoutSideTemplate() {
-  return `
+  return /*html*/ `
 <div class="layout-side">
   <div class="layout-side-content">
     <div class="layout-side-time">2019/05/03 12:22</div>

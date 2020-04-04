@@ -1,21 +1,22 @@
-
 let LayoutForm = {
   name: 'layout-form',
   template: getLayoutFormTemplate(),
-  data () {
+  data() {
     return {
+      visible: false,
       active: 0,
+      type: 'normal',
       form: this.getForm(),
       tabs: [
         { label: '基础配置', icon: 'pen' },
         { label: '表格扩展', icon: 'table' },
         { label: '查询扩展', icon: 'filter' },
-        { label: '弹窗扩展', icon: 'card' },
+        { label: '弹窗扩展', icon: 'card' }
       ]
     };
   },
   methods: {
-    getForm () {
+    getForm() {
       return {
         title: '',
         key: '',
@@ -42,23 +43,55 @@ let LayoutForm = {
         }
       };
     },
-    handleScroll (e) {
+    add() {
+      return new Promise((resolve) => {
+        this.resolve = resolve;
+        this.form = this.getForm();
+        this.visible = true;
+        this.mode === 'add';
+        this.$nextTick(() => {
+          this.$refs.title.focus();
+        });
+      });
+    },
+    update(field) {
+      return new Promise((resolve) => {
+        this.resolve = resolve;
+        this.form = window.util.copy(field);
+        this.visible = true;
+        this.mode === 'update';
+        this.$nextTick(() => {
+          this.$refs.title.focus();
+        });
+      });
+    },
+    handleScroll(e) {
       this.timer && clearTimeout(this.timer);
       this.timer = setTimeout(() => {
-        let offsetHeight = e.target.offsetHeight;
+        let offsetHeight = e.target.offsetHeight / 2 - 1;
         let scrollTop = e.target.scrollTop;
         let active = Math.floor(scrollTop / offsetHeight);
-        
+        console.log(active, offsetHeight, scrollTop);
+
         this.active = active;
       }, 100);
     },
-    scrollMain (i) {
+    handleKeydow(e) {
+      if (e.key === 'Enter' && e.ctrlKey) {
+        this.handleConfirm();
+      }
+    },
+    scrollMain(i) {
       let $main = this.$refs.main;
       this.active = i;
       $main.scrollBy({
-        top: $main.offsetHeight * i - $main.scrollTop,
+        top: ($main.offsetHeight / 2) * i - $main.scrollTop,
         behavior: 'smooth'
       });
+    },
+    handleConfirm() {
+      this.visible = false;
+      this.resolve(this.form);
     }
   }
 };
@@ -66,8 +99,8 @@ let LayoutForm = {
 window.Vue.component(LayoutForm.name, LayoutForm);
 
 function getLayoutFormTemplate() {
-  return `
-<div class="layout-form">
+  return /*html*/ `
+<div class="layout-form" v-if="visible" @keydown="handleKeydow">
   <div class="layout-form-header">
     <button class="btn-back"><</button>
     <div class="header-title">
@@ -93,7 +126,7 @@ function getLayoutFormTemplate() {
         <h3 class="form-title">基础配置</h3>
         <div class="form-item">
           <label class="item-label">title</label>
-          <input class="item-content" placeholder="请输入 title" v-model="form.title" />
+          <input class="item-content" placeholder="请输入 title" v-model="form.title" ref="title" />
           <span class="item-tip">标题</span>
         </div>
         <div class="form-item">
@@ -192,7 +225,15 @@ function getLayoutFormTemplate() {
           <span class="item-tip">类型，不填写继承基础配置。</span>
         </div>
       </div>
+      <div class="form-wrap">
+      </div>
     </div>
+  </div>
+  <div class="layout-form-footer">
+    <button class="btn active" @click="handleConfirm">
+      <a-icon icon="done"></a-icon>
+      <span class="gap">完成配置</span>
+    </button>
   </div>
 </div>
   `;

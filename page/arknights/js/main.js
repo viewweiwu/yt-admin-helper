@@ -1,5 +1,5 @@
 let Main = {
-  data () {
+  data() {
     return {
       msg: '2222'
     };

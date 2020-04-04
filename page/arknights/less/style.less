@@ -10,6 +10,7 @@ body {
 
 .btn-back {
   width: 60px;
+  line-height: 1;
   margin: 0 @space;
   text-align: left;
   cursor: pointer;
@@ -20,21 +21,23 @@ body {
   height: 50px;
   color: #fff;
   border: 1px solid @white;
+  background-color: transparent;
   .flex();
   user-select: none;
   cursor: pointer;
 
   .iconfont {
-    text-shadow: 0 .2em 4px fadeout(@fade-white, 20%);
+    text-shadow: 0 0.2em 4px fadeout(@fade-white, 20%);
   }
 
   &:hover,
+  &:focus,
   &.active {
     color: @black;
     background-color: @fade-white-hover;
 
     .iconfont {
-      text-shadow: 0 .4em 5px fadeout(@fade-black, 20%);
+      text-shadow: 0 0.4em 5px fadeout(@fade-black, 20%);
     }
   }
 
@@ -53,7 +56,7 @@ body {
     border-left: 1px solid @black;
     padding-left: @space;
     margin-left: @space2;
-    opacity: .6;
+    opacity: 0.8;
   }
 
   .item-label {
@@ -78,4 +81,8 @@ input {
   padding: 0 12px;
   border: 1px solid transparent;
   background-color: @bg-black-fade;
+}
+
+.cursor {
+  cursor: pointer;
 }
