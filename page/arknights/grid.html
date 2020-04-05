@@ -4,24 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>arknights</title>
-    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1720959_q9aks0sz4lf.css" />
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1720959_l5f6rzh0rpo.css" />
     <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
     <div id="app">
-      <layout-grid></layout-grid>
-      <!-- <layout-side /></layout-side> -->
-      {{ msg }}
+      <layout-grid ref="grid" @hide="showSide"></layout-grid>
+      <layout-side ref="side" @select="handleSideSelect"></layout-side>
+      <layout-preview ref="preview" @hide="showSide"></layout-preview>
     </div>
+    <script src="https://cdn.bootcss.com/howler/2.1.3/howler.min.js"></script>
+    <script src="./js/sound.js"></script>
     <script src="./js/util.js"></script>
+    <script src="./js/data.js"></script>
     <script src="./js/vue.min.js"></script>
+    <script src="./js/a-back.js"></script>
+    <script src="./js/a-button.js"></script>
+    <script src="./js/a-input.js"></script>
     <script src="./js/a-icon.js"></script>
     <script src="./js/a-radio.js"></script>
     <script src="./js/a-switch.js"></script>
-    <script src="./js/layout-form-select.js"></script>
     <script src="./js/layout-form.js"></script>
     <script src="./js/layout-grid.js"></script>
     <script src="./js/layout-side.js"></script>
+    <script src="./js/layout-preview.js"></script>
     <script src="./js/main.js"></script>
   </body>
 </html>

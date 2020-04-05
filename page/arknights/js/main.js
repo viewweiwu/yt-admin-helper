@@ -1,9 +1,22 @@
 let Main = {
   data() {
-    return {
-      msg: '2222'
-    };
+    return {};
+  },
+  methods: {
+    handleSideSelect(type) {
+      switch (type) {
+        case 'fight':
+          this.$refs.grid.show();
+          break;
+        case 'preview':
+          this.$refs.preview.show();
+          break;
+      }
+    },
+    showSide() {
+      this.$refs.side.show();
+    }
   }
 };
 
-new window.Vue(Main).$mount('#app');
+window.app = new window.Vue(Main).$mount('#app');

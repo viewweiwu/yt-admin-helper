@@ -56,7 +56,7 @@ let ArknightsIcon = {
 window.Vue.component(ArknightsIcon.name, ArknightsIcon);
 
 function getArknightsIconTemplate() {
-  return `
+  return /*html*/ `
 <i
   v-bind="$attrs"
   :class="iconClass"

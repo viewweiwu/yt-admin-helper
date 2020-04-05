@@ -3,14 +3,27 @@
   right: 0;
   height: 100%;
   color: #333;
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   user-select: none;
+  overflow: hidden;
+  transition: 300ms;
+
+  &.hide {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.layout-grid-back {
+  top: 50px;
+  left: 100px;
+  position: absolute;
 }
 
 .layout-side-content {
-  transform: perspective(400px) rotateY(-5deg) rotateX(1deg) scale(1.1);
+  transform: perspective(400px) rotateY(-5deg) rotateX(1deg);
   transform-origin: right center;
   display: flex;
   flex-direction: column;
@@ -34,9 +47,9 @@
   overflow: hidden;
   transition: 200ms;
   cursor: pointer;
-  
+
   .item-title,
-  .item-multi-title  {
+  .item-multi-title {
     font-size: 36px;
     font-family: Serif;
     font-weight: bold;
@@ -44,7 +57,7 @@
     position: relative;
   }
 
-  .item-name{
+  .item-name {
     padding: 4px;
     color: #fff;
     background-color: @black;
@@ -54,7 +67,7 @@
     right: 0;
     bottom: 0;
     font-size: 80px;
-    opacity: .1;
+    opacity: 0.1;
     position: absolute;
     pointer-events: none;
   }
@@ -67,7 +80,7 @@
     width: 200px;
     height: 100px;
     z-index: 1;
-    opacity: .2;
+    opacity: 0.2;
     background-image: url(../images/dot.png);
     background-size: 300px 300px;
     position: absolute;
@@ -125,7 +138,7 @@
     background-color: @fade-blue;
 
     .a-icon {
-      opacity: .2;
+      opacity: 0.2;
     }
 
     &:hover {
@@ -181,11 +194,11 @@
       font-size: 40px;
       transform: translateY(-50%);
     }
-    
+
     &::after {
       right: -150px;
     }
-    
+
     &:hover {
       background-color: @fade-blue-hover;
     }
@@ -214,7 +227,7 @@
 .layout-side-black-gap {
   width: 60px;
   margin-left: @space;
-  background-color: rgba(0, 0, 0, .8);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .layout-side-row {

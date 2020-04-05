@@ -9,10 +9,8 @@ let ArknightsSwitch = {
   },
   methods: {
     handleEnter() {
+      window.soundList.click.play();
       this.$emit('input', !this.value);
-    },
-    handleClick(e) {
-      this.$emit('click', e);
     }
   }
 };
@@ -25,8 +23,8 @@ function getArknightsSwitchTemplate() {
   class="a-switch"
   :class="{ open: value }"
   tabindex="0"
-  @keydown.space="handleEnter"
-  @keydown.enter="handleEnter"
+  @keydown.space.prevent="handleEnter"
+  @keydown.enter.prevent="handleEnter"
   @click="handleEnter"
 >
   <input type="checkbox" tabindex="-1" :value="value" />

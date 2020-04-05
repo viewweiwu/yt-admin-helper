@@ -9,6 +9,13 @@
   align-items: center;
   overflow: auto;
   transform: translateY(-50%);
+  transition: 300ms;
+  outline: false;
+
+  &.hide {
+    opacity: 0;
+    transform: translateX(-100%) translateY(-50%);
+  }
 }
 
 .layout-grid-content {

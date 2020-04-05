@@ -4,9 +4,11 @@ let LayoutForm = {
   data() {
     return {
       visible: false,
+      mode: '',
       active: 0,
       type: 'normal',
       form: this.getForm(),
+      appended: false,
       tabs: [
         { label: '基础配置', icon: 'pen' },
         { label: '表格扩展', icon: 'table' },
@@ -43,26 +45,32 @@ let LayoutForm = {
         }
       };
     },
-    add() {
-      return new Promise((resolve) => {
-        this.resolve = resolve;
-        this.form = this.getForm();
-        this.visible = true;
-        this.mode === 'add';
+    init() {
+      this.visible = true;
+      if (!this.appended) {
         this.$nextTick(() => {
-          this.$refs.title.focus();
+          document.body.appendChild(this.$refs.form);
         });
+      }
+      this.$nextTick(() => {
+        this.$refs.title.focus();
+      });
+    },
+    add() {
+      return new Promise((resolve, reject) => {
+        this.init();
+        this.resolve = resolve;
+        this.reject = reject;
+        this.form = this.getForm();
+        this.mode = 'add';
       });
     },
     update(field) {
       return new Promise((resolve) => {
+        this.init();
         this.resolve = resolve;
         this.form = window.util.copy(field);
-        this.visible = true;
-        this.mode === 'update';
-        this.$nextTick(() => {
-          this.$refs.title.focus();
-        });
+        this.mode = 'update';
       });
     },
     handleScroll(e) {
@@ -71,7 +79,6 @@ let LayoutForm = {
         let offsetHeight = e.target.offsetHeight / 2 - 1;
         let scrollTop = e.target.scrollTop;
         let active = Math.floor(scrollTop / offsetHeight);
-        console.log(active, offsetHeight, scrollTop);
 
         this.active = active;
       }, 100);
@@ -79,9 +86,12 @@ let LayoutForm = {
     handleKeydow(e) {
       if (e.key === 'Enter' && e.ctrlKey) {
         this.handleConfirm();
+      } else if (e.key === 'Escape') {
+        this.$refs.back.handleClick();
       }
     },
     scrollMain(i) {
+      window.soundList.tab.play();
       let $main = this.$refs.main;
       this.active = i;
       $main.scrollBy({
@@ -90,8 +100,15 @@ let LayoutForm = {
       });
     },
     handleConfirm() {
+      window.soundList.confirm.play();
       this.visible = false;
       this.resolve(this.form);
+    },
+    handleBack() {
+      this.reject();
+      this.resolve = null;
+      this.reject = null;
+      this.visible = false;
     }
   }
 };
@@ -100,12 +117,12 @@ window.Vue.component(LayoutForm.name, LayoutForm);
 
 function getLayoutFormTemplate() {
   return /*html*/ `
-<div class="layout-form" v-if="visible" @keydown="handleKeydow">
+<div ref="form" class="layout-form" v-if="visible" @keydown.stop="handleKeydow">
   <div class="layout-form-header">
-    <button class="btn-back"><</button>
+    <a-back @click="handleBack" ref="back"></a-back>
     <div class="header-title">
       <a-icon icon="pen"></a-icon>
-      <span class="gap">新增一列</span>
+      <span class="gap">{{ mode === 'add' ? '新增' : '编辑' }}一列</span>
     </div>
   </div>
   <div class="layout-form-container">
@@ -126,27 +143,27 @@ function getLayoutFormTemplate() {
         <h3 class="form-title">基础配置</h3>
         <div class="form-item">
           <label class="item-label">title</label>
-          <input class="item-content" placeholder="请输入 title" v-model="form.title" ref="title" />
+          <a-input class="item-content" placeholder="请输入 title" v-model="form.title" ref="title"></a-input>
           <span class="item-tip">标题</span>
         </div>
         <div class="form-item">
           <label class="item-label">key</label>
-          <input class="item-content" placeholder="请输入 key" v-model="form.key" />
+          <a-input class="item-content" placeholder="请输入 key" v-model="form.key"></a-input>
           <span class="item-tip">key</span>
         </div>
         <div class="form-item">
           <label class="item-label">type</label>
-          <input class="item-content" placeholder="请选择 type" v-model="form.type" />
+          <a-input class="item-content" placeholder="请选择 type" v-model="form.type"></a-input>
           <span class="item-tip">标签的类型，这个属性不会应用到 table 上</span>
         </div>
         <div class="form-item">
           <label class="item-label">options</label>
-          <input class="item-content" placeholder="请选择类型" v-model="form.options" />
+          <a-input class="item-content" placeholder="请选择类型" v-model="form.options"></a-input>
           <span class="item-tip">此选项在表格、查询、弹窗三者都有用，在表格会跟 value 匹配展示 label，在查询和弹窗则展示下拉。</span>
         </div>
         <div class="form-item">
           <label class="item-label">optionsKey</label>
-          <input class="item-content" placeholder="请选择需要的类型" v-model="form.optionsKey" />
+          <a-input class="item-content" placeholder="请选择需要的类型" v-model="form.optionsKey"></a-input>
           <span class="item-tip">可以从 systemParams 取 key 值</span>
         </div>
       </div>
@@ -161,17 +178,17 @@ function getLayoutFormTemplate() {
         </div>
         <div class="form-item">
           <label class="item-label">title</label>
-          <input class="item-content" placeholder="请输入 title" v-model="form.table.title" />
+          <a-input class="item-content" placeholder="请输入 title" v-model="form.table.title"></a-input>
           <span class="item-tip">标题</span>
         </div>
         <div class="form-item">
           <label class="item-label">key</label>
-          <input class="item-content" placeholder="请输入 key" v-model="form.table.key" />
+          <a-input class="item-content" placeholder="请输入 key" v-model="form.table.key"></a-input>
           <span class="item-tip">key</span>
         </div>
         <div class="form-item">
           <label class="item-label">type</label>
-          <input class="item-content" placeholder="请选择 type" v-model="form.table.type" />
+          <a-input class="item-content" placeholder="请选择 type" v-model="form.table.type"></a-input>
           <span class="item-tip">标签的类型，这个属性不会应用到 table 上</span>
         </div>
       </div>
@@ -186,17 +203,17 @@ function getLayoutFormTemplate() {
         </div>
         <div class="form-item">
           <label class="item-label">title</label>
-          <input class="item-content" placeholder="请输入 title" v-model="form.search.title" />
+          <a-input class="item-content" placeholder="请输入 title" v-model="form.search.title"></a-input>
           <span class="item-tip">标题，不填写继承基础配置。</span>
         </div>
         <div class="form-item">
           <label class="item-label">key</label>
-          <input class="item-content" placeholder="请输入 key" v-model="form.search.key" />
+          <a-input class="item-content" placeholder="请输入 key" v-model="form.search.key"></a-input>
           <span class="item-tip">key，不填写继承基础配置。</span>
         </div>
         <div class="form-item">
           <label class="item-label">type</label>
-          <input class="item-content" placeholder="请选择 type" v-model="form.search.type" />
+          <a-input class="item-content" placeholder="请选择 type" v-model="form.search.type"></a-input>
           <span class="item-tip">类型，不填写继承基础配置。</span>
         </div>
       </div>
@@ -211,17 +228,17 @@ function getLayoutFormTemplate() {
         </div>
         <div class="form-item">
           <label class="item-label">title</label>
-          <input class="item-content" placeholder="请输入 title" v-model="form.dialog.title" />
+          <a-input class="item-content" placeholder="请输入 title" v-model="form.dialog.title"></a-input>
           <span class="item-tip">标题，不填写继承基础配置。</span>
         </div>
         <div class="form-item">
           <label class="item-label">key</label>
-          <input class="item-content" placeholder="请输入 key" v-model="form.dialog.key" />
+          <a-input class="item-content" placeholder="请输入 key" v-model="form.dialog.key"></a-input>
           <span class="item-tip">key，不填写继承基础配置。</span>
         </div>
         <div class="form-item">
           <label class="item-label">type</label>
-          <input class="item-content" placeholder="请选择 type" v-model="form.dialog.type" />
+          <a-input class="item-content" placeholder="请选择 type" v-model="form.dialog.type"></a-input>
           <span class="item-tip">类型，不填写继承基础配置。</span>
         </div>
       </div>

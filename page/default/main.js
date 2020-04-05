@@ -39,9 +39,7 @@ let fields = [
     title: '用户类型',
     key: 'type',
     type: 'select',
-    options: [
-      { label: '1', value: 1 }
-    ],
+    options: [{ label: '1', value: 1 }],
     optionsKey: 'userType',
     search: {
       order: 4
@@ -524,7 +522,7 @@ window.Vue.component('h-options', {
     </div>
   `,
   methods: {
-    pushRandomOptions () {
+    pushRandomOptions() {
       let options = [
         { label: '臭豆腐', value: 1 },
         { label: '腐乳', value: 2 },
@@ -563,11 +561,11 @@ const fieldOptions = [
   { value: 'daterange', label: '日期组' },
   { value: 'cascader', label: '级联框' },
   { value: 'switch', label: '开关' },
-  { value: 'slider', label: '滑块' },
+  { value: 'slider', label: '滑块' }
 ];
 
 const getFiledOption = () => {
-  return fieldOptions.map(option => {
+  return fieldOptions.map((option) => {
     return {
       value: option.value,
       text: option.label + ' ' + option.value
@@ -586,7 +584,7 @@ window.Vue.component('h-form', {
       default: 0
     }
   },
-  data () {
+  data() {
     return {
       formList: [
         {
@@ -724,7 +722,7 @@ window.Vue.component('h-form', {
   },
   template: `<iview-form ref="form" lib="element" :label-width="120" :formList="formList" @submit="handleSubmit" />`,
   methods: {
-    handleSubmit (form) {
+    handleSubmit(form) {
       let submitForm = {};
       if (form.title) {
         submitForm.title = form.title;
@@ -739,7 +737,7 @@ window.Vue.component('h-form', {
         submitForm.search = {};
         submitForm.search.title = form.title;
       }
-      submitForm.options = form.options.split('\n').map(item => {
+      submitForm.options = form.options.split('\n').map((item) => {
         let option = item.split(',');
         return {
           label: (option[0] || '').trim(),
@@ -760,7 +758,7 @@ window.Vue.component('h-confirm', {
   props: {
     title: String
   },
-  data () {
+  data() {
     return {
       visible: false
     };
@@ -779,7 +777,7 @@ window.Vue.component('h-confirm', {
   </el-popover>
   `,
   methods: {
-    handleConfirm () {
+    handleConfirm() {
       this.visible = false;
       this.$emit('confirm');
     }
@@ -796,26 +794,27 @@ let Main = {
   },
   filters: {},
   computed: {
-    searchFields () {
-      return this.fields.filter(item => item.search).map(item => {
-        let field = {
-          ...item,
-          ...item.search
-        };
-        if (field.type === 'org') {
-          field.type = 'cascader';
-        }
-        return field;
-      });
+    searchFields() {
+      return this.fields
+        .filter((item) => item.search)
+        .map((item) => {
+          let field = {
+            ...item,
+            ...item.search
+          };
+          if (field.type === 'org') {
+            field.type = 'cascader';
+          }
+          return field;
+        });
     }
   },
-  mounted () {
-  },
+  mounted() {},
   methods: {
-    handleDelete (i) {
+    handleDelete(i) {
       this.fields.splice(i, 1);
     },
-    getPlaceholder (field) {
+    getPlaceholder(field) {
       let select = ['select', 'org', 'cascader', 'date', 'daterange', 'datetimerange'].includes(field.type) ? '选择' : '输入';
       return `请${select}${field.title}`;
     }

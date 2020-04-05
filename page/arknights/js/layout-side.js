@@ -1,17 +1,35 @@
 let LayoutSide = {
   name: 'layout-side',
   template: getLayoutSideTemplate(),
+  data() {
+    return {
+      visible: true
+    };
+  },
+  methods: {
+    handleSelect(type) {
+      this.$emit('select', type);
+      this.hide();
+      window.soundList.confirm.play();
+    },
+    hide() {
+      this.visible = false;
+    },
+    show() {
+      this.visible = true;
+    }
+  }
 };
 
 window.Vue.component(LayoutSide.name, LayoutSide);
 
 function getLayoutSideTemplate() {
   return /*html*/ `
-<div class="layout-side">
+<div class="layout-side" :class="{ hide: !visible }">
   <div class="layout-side-content">
     <div class="layout-side-time">2019/05/03 12:22</div>
     <div class="layout-side-row">
-      <div class="layout-side-item item-main">
+      <div class="layout-side-item item-main" @click="handleSelect('fight')">
         <p class="item-title">作战</p>
         <a-icon icon="fight" />
       </div>
@@ -21,8 +39,8 @@ function getLayoutSideTemplate() {
         <p class="item-title">编队</p>
         <a-icon icon="fight" />
       </div>
-      <div class="layout-side-item">
-        <p class="item-title">干员</p>
+      <div class="layout-side-item" @click="handleSelect('preview')">
+        <p class="item-title">预览</p>
         <a-icon icon="task" />
       </div>
       <div class="layout-side-black-gap"></div>

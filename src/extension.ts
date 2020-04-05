@@ -45,7 +45,7 @@ function CreateYtAdminAutoPage(context: vscode.ExtensionContext) {
       'yt-admin 自动化布局', // 给用户显示的面板标题
       vscode.ViewColumn.One, // 给新的webview面板一个编辑器视图
       {
-        enableScripts: true, // 允许 webview 使用 script
+        enableScripts: true // 允许 webview 使用 script
       }
     );
 
@@ -62,11 +62,19 @@ function CreateYtAdminAutoPage(context: vscode.ExtensionContext) {
   }
 }
 
+function getScript(context: vscode.ExtensionContext): string {
+  let scriptList = ['sound.js', 'util.js', 'vue.min.js', 'a-back.js', 'a-icon.js', 'a-radio.js', 'a-switch.js', 'layout-form.js', 'layout-grid.js', 'layout-side.js', 'main.js'];
+  let result = '';
+  scriptList.forEach((item) => {
+    let js = vscode.Uri.file(path.join(context.extensionPath, 'page/arknights/js', item)).with({ scheme: 'vscode-resource' });
+    result += `<script src="${js}"></script>`;
+  });
+  return result;
+}
+
 function getWebviewContent(context: vscode.ExtensionContext): string {
   // 获取磁盘上的资源路径
-  let vuejs = vscode.Uri.file(path.join(context.extensionPath, 'page/arknights/js', 'vue.min.js')).with({ scheme: 'vscode-resource' });
-  let layoutsidejs = vscode.Uri.file(path.join(context.extensionPath, 'page/arknights/js', 'layout-side.js')).with({ scheme: 'vscode-resource' });
-  let mainjs = vscode.Uri.file(path.join(context.extensionPath, 'page/arknights/js', 'main.js')).with({ scheme: 'vscode-resource' });
+  let js = getScript(context);
 
   // 获取磁盘上的资源路径
   let style = vscode.Uri.file(path.join(context.extensionPath, 'page/arknights/css', 'index.css')).with({ scheme: 'vscode-resource' });
@@ -83,12 +91,9 @@ function getWebviewContent(context: vscode.ExtensionContext): string {
   </head>
   <body>
     <div id="app">
-			<layout-side></layout-side>
-      {{ msg }}
+      <layout-grid></layout-grid>
     </div>
-    <script src="${vuejs}"></script>
-    <script src="${layoutsidejs}"></script>
-    <script src="${mainjs}"></script>
+    ${js}
   </body>
   </html>
 	`;
@@ -96,7 +101,6 @@ function getWebviewContent(context: vscode.ExtensionContext): string {
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.commands.registerCommand('extension.createPage', () => CreateYtAdminAutoPage(context)));
-  // context.subscriptions.push(vscode.commands.registerCommand('myExtension.sayHello', CreateYtAdminAutoPage));
   // 添加悬浮提示
   context.subscriptions.push(vscode.languages.registerHoverProvider('vue', new VueHoverProvider()));
 }
