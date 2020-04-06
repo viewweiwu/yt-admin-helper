@@ -76,9 +76,9 @@ let LayoutForm = {
     handleScroll(e) {
       this.timer && clearTimeout(this.timer);
       this.timer = setTimeout(() => {
-        let offsetHeight = e.target.offsetHeight / 2 - 1;
-        let scrollTop = e.target.scrollTop;
-        let active = Math.floor(scrollTop / offsetHeight);
+        let titleList = [...this.$refs.form.querySelectorAll('h3')];
+        let active = titleList.findIndex(item => item.getBoundingClientRect().top >= 0);
+        console.log(active);
 
         this.active = active;
       }, 100);
@@ -93,9 +93,10 @@ let LayoutForm = {
     scrollMain(i) {
       window.soundList.tab.play();
       let $main = this.$refs.main;
-      this.active = i;
+      let titleList = [...this.$refs.form.querySelectorAll('h3')];
+      let target = titleList[i];
       $main.scrollBy({
-        top: ($main.offsetHeight / 2) * i - $main.scrollTop,
+        top: target.offsetTop - $main.scrollTop,
         behavior: 'smooth'
       });
     },
@@ -140,7 +141,7 @@ function getLayoutFormTemplate() {
     </div>
     <div ref="main" class="layout-form-main" @scroll="handleScroll">
       <div class="form-wrap">
-        <h3 class="form-title">基础配置</h3>
+        <h3 class="form-title" ref="h3">基础配置</h3>
         <div class="form-item">
           <label class="item-label">title</label>
           <a-input class="item-content" placeholder="请输入 title" v-model="form.title" ref="title"></a-input>
@@ -168,7 +169,7 @@ function getLayoutFormTemplate() {
         </div>
       </div>
       <div class="form-wrap">
-        <h3 class="form-title">表格扩展 table</h3>
+        <h3 class="form-title" ref="h3">表格扩展 table</h3>
         <div class="form-item">
           <label class="item-label">show</label>
           <span class="item-content">
@@ -193,7 +194,7 @@ function getLayoutFormTemplate() {
         </div>
       </div>
       <div class="form-wrap">
-        <h3 class="form-title">查询扩展 search</h3>
+        <h3 class="form-title" ref="h3">查询扩展 search</h3>
         <div class="form-item">
           <label class="item-label">show</label>
           <span class="item-content">
@@ -218,7 +219,7 @@ function getLayoutFormTemplate() {
         </div>
       </div>
       <div class="form-wrap">
-        <h3 class="form-title">弹窗扩展 dialog</h3>
+        <h3 class="form-title" ref="h3">弹窗扩展 dialog</h3>
         <div class="form-item">
           <label class="item-label">show</label>
           <span class="item-content">
@@ -242,8 +243,7 @@ function getLayoutFormTemplate() {
           <span class="item-tip">类型，不填写继承基础配置。</span>
         </div>
       </div>
-      <div class="form-wrap">
-      </div>
+      <div class="form-empty"></div>
     </div>
   </div>
   <div class="layout-form-footer">

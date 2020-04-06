@@ -65,13 +65,18 @@
   flex: 1;
   background-color: @fade-white;
   overflow: auto;
+  position: relative;
   scroll-snap-type: y;
   scroll-snap-points-y: repeat(100%);
 }
 
 .form-wrap {
-  height: 50%;
+  // height: 50%;
   scroll-snap-align: start;
+}
+
+.form-empty {
+  height: 50%;
 }
 
 .layout-form-select {
