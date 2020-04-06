@@ -11,6 +11,9 @@ let Main = {
         case 'preview':
           this.$refs.preview.show();
           break;
+        case 'params':
+          this.$refs.params.show();
+          break;
       }
     },
     showSide() {

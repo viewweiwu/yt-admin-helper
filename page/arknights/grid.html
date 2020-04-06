@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>arknights</title>
-    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1720959_l5f6rzh0rpo.css" />
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1720959_eklnw0qn7sk.css" />
     <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
     <div id="app">
-      <layout-grid ref="grid" @hide="showSide"></layout-grid>
       <layout-side ref="side" @select="handleSideSelect"></layout-side>
+      <layout-grid ref="grid" @hide="showSide"></layout-grid>
       <layout-preview ref="preview" @hide="showSide"></layout-preview>
+      <layout-params ref="params" @hide="showSide"></layout-params>
     </div>
     <script src="https://cdn.bootcss.com/howler/2.1.3/howler.min.js"></script>
     <script src="./js/sound.js"></script>
@@ -24,10 +25,11 @@
     <script src="./js/a-icon.js"></script>
     <script src="./js/a-radio.js"></script>
     <script src="./js/a-switch.js"></script>
+    <script src="./js/layout-side.js"></script>
     <script src="./js/layout-form.js"></script>
     <script src="./js/layout-grid.js"></script>
-    <script src="./js/layout-side.js"></script>
     <script src="./js/layout-preview.js"></script>
+    <script src="./js/layout-params.js"></script>
     <script src="./js/main.js"></script>
   </body>
 </html>

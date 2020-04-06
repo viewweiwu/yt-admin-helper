@@ -71,7 +71,7 @@ let LayoutPreview = {
         this.fields = window.fields;
       }
       this.$nextTick(() => {
-        this.$refs.back.focus();
+        this.$refs.preview.focus();
       });
     },
     hide() {
@@ -92,7 +92,7 @@ window.Vue.component(LayoutPreview.name, LayoutPreview);
 
 function getLayoutPreviewTemplate() {
   return /*html*/ `
-<div class="layout-preview" v-if="visible" @keydown.escape="handleBack" tabindex="0">
+<div ref="preview" class="layout-preview" v-if="visible" @keydown.escape="handleBack" tabindex="0">
   <a-back ref="back" @click="hide"></a-back>
   <div class="layout-preview-search">
     <div class="form-item" v-for="field in searchFields">

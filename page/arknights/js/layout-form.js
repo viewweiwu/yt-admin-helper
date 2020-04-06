@@ -84,7 +84,7 @@ let LayoutForm = {
       }, 100);
     },
     handleKeydow(e) {
-      if (e.key === 'Enter' && e.ctrlKey) {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
         this.handleConfirm();
       } else if (e.key === 'Escape') {
         this.$refs.back.handleClick();
