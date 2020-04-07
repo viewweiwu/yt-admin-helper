@@ -2,6 +2,12 @@ window.util = {
   copy(obj) {
     return JSON.parse(JSON.stringify(obj));
   },
+  getRandom(min, max) {
+    return min + Math.random() * (max - min);
+  },
+  getRandomFloor(min, max) {
+    return min + Math.floor(Math.random() * (max - min + 1));
+  },
   debounce(fn, wait) {
     var timer = null;
     return function () {

@@ -67,6 +67,7 @@ let LayoutPreview = {
   methods: {
     show() {
       this.visible = true;
+      console.log(window.fields);
       if (window.fields) {
         this.fields = window.fields;
       }

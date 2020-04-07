@@ -67,8 +67,8 @@ function getLayoutSideTemplate() {
     </div>
     <div class="layout-side-row row-end">
       <div class="layout-side-item" tabindex="0">
-        <p class="item-title">任务</p>
-        <a-icon icon="task" />
+        <p class="item-title">生成代码</p>
+        <a-icon icon="code" />
       </div>
       <div class="layout-side-item" tabindex="0">
         <p class="item-title">基建</p>
