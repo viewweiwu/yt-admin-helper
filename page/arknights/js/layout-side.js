@@ -3,7 +3,8 @@ let LayoutSide = {
   template: getLayoutSideTemplate(),
   data() {
     return {
-      visible: true
+      visible: true,
+      type: 'fight'
     };
   },
   methods: {
@@ -11,13 +12,18 @@ let LayoutSide = {
       this.hide();
       window.soundList.confirm.play();
       this.$emit('select', type);
+      this.type = type;
     },
     hide() {
       this.visible = false;
     },
     show() {
-      this.$refs.fight.focus();
       this.visible = true;
+      if (this.type && this.$refs[this.type]) {
+        this.$refs[this.type].focus();
+      } else {
+        this.$refs.fight.focus();
+      }
     }
   }
 };
@@ -47,7 +53,7 @@ function getLayoutSideTemplate() {
       <div class="layout-side-black-gap"></div>
     </div>
     <div class="layout-side-row row-primary">
-      <div class="layout-side-item item-blue item-title-end"  @click="handleSelect('params')" tabindex="0" @keydown.self.enter="handleSelect('params')">
+      <div ref="params" class="layout-side-item item-blue item-title-end"  @click="handleSelect('params')" tabindex="0" @keydown.self.enter="handleSelect('params')">
         <p class="item-title">参数设置</p>
         <a-icon icon="setting" />
       </div>

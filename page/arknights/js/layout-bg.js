@@ -3,7 +3,8 @@ let LayoutBg = {
   template: getLayoutBGTemplate(),
   data () {
     return {
-      maxSize: 10,
+      maxSize: 1,
+      saveMaxSize: 10,
       colors: ['#fff', '#000'],
       points: []
     };
@@ -22,14 +23,24 @@ let LayoutBg = {
       $canvas.height = this.height;
       this.ctx = $canvas.getContext('2d');
       this.loopDraw();
+      this.loopMaxSize();
+    },
+    loopMaxSize () {
+      this.maxTimer && clearTimeout(this.maxTimer);
+      this.maxTimer = setTimeout(() => {
+        if (this.maxSize < this.saveMaxSize) {
+          this.maxSize += 1;
+        }
+        this.loopMaxSize();
+      }, 500);
     },
     createPoint () {
       if (this.points.length < this.maxSize) {
         this.points.push({
           x: this.width,
-          y: this.height,
+          y: this.getRandomFloor(0, this.height),
           xa: -this.getRandom(1, 5),
-          ya: -this.getRandom(0, 3),
+          ya: -this.getRandom(-3, 3),
           size: Math.floor(Math.random() * 3) + 2,
           color: this.colors[this.getRandomFloor(0, 1)]
         });
