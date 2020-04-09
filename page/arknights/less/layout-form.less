@@ -13,6 +13,12 @@
   ::-webkit-scrollbar-thumb {
     background: @black;
   }
+
+  input {
+    border-color: transparent;
+    color: #333;
+    background-color: @bg-black-fade;
+  }
 }
 
 .layout-form-header {
@@ -93,5 +99,26 @@
 
   & &::after {
     display: none;
+  }
+}
+
+.layout-form-options {
+  padding-top: @space;
+
+  .option-item {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 @space;
+    margin-bottom: @space;
+    margin-left: @space;
+    border: 1px solid #000;
+    display: inline-block;
+  }
+
+  .a-icon {
+    cursor: pointer;
+    &:hover {
+      filter: brightness(1.4);
+    }
   }
 }

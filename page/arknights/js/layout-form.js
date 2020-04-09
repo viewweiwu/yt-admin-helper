@@ -24,6 +24,7 @@ let LayoutForm = {
         key: '',
         type: '',
         options: [],
+        optionsValue: '',
         optionsKey: '',
         hasTableExtend: true,
         table: {
@@ -110,6 +111,30 @@ let LayoutForm = {
       this.resolve = null;
       this.reject = null;
       this.visible = false;
+    },
+    handleOptionEnter() {
+      let value = this.form.optionsValue.trim();
+      if (value) {
+        let item = value.split(' ');
+        if (item.length >= 2) {
+          let option = {
+            label: item[0],
+            value: item[1]
+          };
+          this.form.options.push(option);
+        }
+      }
+      this.form.optionsValue = '';
+    },
+    handleDeleteOption(options, i) {
+      options.splice(i, 1);
+      if (options.length === 0) {
+        this.$refs['option-input'].focus();
+      } else {
+        this.$nextTick(() => {
+          this.$refs.option[i - 1].focus();
+        });
+      }
     }
   }
 };
@@ -159,8 +184,26 @@ function getLayoutFormTemplate() {
         </div>
         <div class="form-item">
           <label class="item-label">options</label>
-          <a-input class="item-content" placeholder="请选择类型" v-model="form.options"></a-input>
-          <span class="item-tip">此选项在表格、查询、弹窗三者都有用，在表格会跟 value 匹配展示 label，在查询和弹窗则展示下拉。</span>
+          <div class="item-content">
+            <a-input ref="option-input" class="item-content" placeholder="请输入选项" v-model="form.optionsValue" @keydown.native.enter="handleOptionEnter"></a-input>
+            <ul class="layout-form-options" v-if="form.options.length">
+              <li
+                ref="option"
+                v-for="(option, i) in form.options"
+                :key="option.value"
+                class="option-item"
+                tabindex="0"
+                @keydown.backspace="handleDeleteOption(form.options, i)"
+              >
+              <span>{{ option.label }}：{{ option.value }}</span>
+              <a-icon icon="close" @click="handleDeleteOption(form.options, i)"></a-icon>
+            </li>
+            </ul>
+          </div>
+          <span class="item-tip">
+            <p class="mb">（label value）回车 <a-icon icon="info"></a-icon></p>
+            <p v-if="form.options.length">此选项在表格、查询、弹窗三者都有用，在表格会跟 value 匹配展示 label，在查询和弹窗则展示下拉。</p>
+          </span>
         </div>
         <div class="form-item">
           <label class="item-label">optionsKey</label>

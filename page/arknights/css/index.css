@@ -306,8 +306,14 @@ template {
 .ml {
   margin-left: 10px;
 }
+.mb {
+  margin-bottom: 10px;
+}
 .gap {
   margin-left: 4px;
+}
+.font-yellow {
+  color: #ffee22;
 }
 ::-webkit-scrollbar {
   width: 10px;
@@ -498,16 +504,17 @@ body {
 .form-item {
   display: flex;
   margin: 12px 0;
-  align-items: center;
 }
 .form-item .item-tip {
   border-left: 1px solid #424242;
+  padding-top: 13px;
   padding-left: 10px;
   margin-left: 20px;
   opacity: 0.8;
 }
 .form-item .item-label {
   width: 7em;
+  padding-top: 13px;
   flex-shrink: 0;
 }
 .form-item .item-content {
@@ -523,13 +530,15 @@ input {
   width: 100%;
   height: 40px;
   padding: 0 12px;
-  border: 1px solid transparent;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-textarea {
+  border: 1px solid #fff;
   color: #fff;
   background-color: rgba(255, 255, 255, 0.1);
+}
+textarea {
   padding: 12px;
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .cursor {
   cursor: pointer;
@@ -770,6 +779,11 @@ textarea {
 .layout-form ::-webkit-scrollbar-thumb {
   background: #424242;
 }
+.layout-form input {
+  border-color: transparent;
+  color: #333;
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .layout-form-header {
   padding: 0 10px;
   border-bottom: 5px solid #ffffff;
@@ -837,6 +851,24 @@ textarea {
 }
 .layout-form-select .layout-form-select::after {
   display: none;
+}
+.layout-form-options {
+  padding-top: 10px;
+}
+.layout-form-options .option-item {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  border: 1px solid #000;
+  display: inline-block;
+}
+.layout-form-options .a-icon {
+  cursor: pointer;
+}
+.layout-form-options .a-icon:hover {
+  filter: brightness(1.4);
 }
 .layout-grid {
   top: 50%;
@@ -1018,8 +1050,7 @@ textarea {
   position: fixed;
 }
 .layout-params textarea {
-  width: 100%;
-  height: 100%;
+  flex: 1;
 }
 .layout-params-container {
   height: 100%;
@@ -1031,6 +1062,8 @@ textarea {
 .layout-params-main {
   flex: 1;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .layout-params-main {
   overflow: auto;
@@ -1054,4 +1087,20 @@ textarea {
   border: 1px solid #fff;
   background-color: rgba(255, 255, 255, 0.1);
   display: inline-block;
+}
+.layout-params-header {
+  height: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.layout-params-header .a-icon {
+  top: 50%;
+  right: 10px;
+  position: absolute;
+  transform: translateY(-50%);
+}
+.layout-params-tag-pane {
+  flex: 1;
+  overflow: auto;
 }

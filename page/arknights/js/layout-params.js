@@ -61,17 +61,24 @@ function getLayoutParamsTemplate() {
   <a-back @click="hide" ref="back"></a-back>
   <div class="layout-params-container">
     <div class="layout-params-side">
+      <p class="layout-params-header">请在此处添加上参数枚举：</p>
       <textarea v-model="value"></textarea>
     </div>
     <a-button class="layout-params-btn" @click="handleTransfer">
       <a-icon icon="transfer" :size="20"></a-icon>
     </a-button>
     <div class="layout-params-main">
-      <div class="layout-params-tag" v-for="item in data">
-        <h3 class="tag-title">{{ item.title }}</h3>
-        <ul class="tag-select">
-          <li class="tag-options" v-for="option in item.options" :key="option.value">{{ option.value }}: {{ option.label }}</li>
-        </ul>
+      <div class="layout-params-header">
+        <input type="search">
+        <a-icon icon="search"></a-icon>
+      </div>
+      <div class="layout-params-tag-pane">
+        <div class="layout-params-tag" v-for="item in data">
+          <h3 class="tag-title">{{ item.title }}</h3>
+          <ul class="tag-select">
+            <li class="tag-options" v-for="option in item.options" :key="option.value">{{ option.value }}: {{ option.label }}</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

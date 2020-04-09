@@ -7,8 +7,7 @@
   position: fixed;
 
   textarea {
-    width: 100%;
-    height: 100%;
+    flex: 1;
   }
 }
 
@@ -23,6 +22,8 @@
 .layout-params-main {
   flex: 1;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .layout-params-main {
@@ -51,5 +52,22 @@
     background-color: @bg-white-fade;
     display: inline-block;
   }
+}
 
+.layout-params-header {
+  height: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  .a-icon {
+    top: 50%;
+    right: 10px;
+    position: absolute;
+    transform: translateY(-50%);
+  }
+}
+
+.layout-params-tag-pane {
+  flex: 1;
+  overflow: auto;
 }
