@@ -101,7 +101,7 @@ function getLayoutPreviewTemplate() {
     </div>
     <div class="form-item search-btns">
       <a-button>查询</a-button>
-      <a-button>重制</a-button>
+      <a-button>重置</a-button>
     </div>
   </div>
   <div class="layout-preview-table">

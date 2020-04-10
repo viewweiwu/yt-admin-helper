@@ -4,7 +4,7 @@ let LayoutBg = {
   data () {
     return {
       maxSize: 1,
-      saveMaxSize: 10,
+      saveMaxSize: 20,
       colors: ['#fff', '#000'],
       points: []
     };

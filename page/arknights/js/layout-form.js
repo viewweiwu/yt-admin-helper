@@ -67,9 +67,10 @@ let LayoutForm = {
       });
     },
     update(field) {
-      return new Promise((resolve) => {
+      return new Promise((resolve, update) => {
         this.init();
         this.resolve = resolve;
+        this.reject = reject;
         this.form = window.util.copy(field);
         this.mode = 'update';
       });

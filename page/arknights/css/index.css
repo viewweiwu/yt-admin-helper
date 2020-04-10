@@ -973,7 +973,7 @@ textarea {
   position: relative;
 }
 .layout-grid-item .item-symbol {
-  top: -20px;
+  top: -22px;
   left: 10%;
   width: 60px;
   height: 60px;
@@ -990,7 +990,6 @@ textarea {
   height: 20px;
   border: 5px solid #fff;
   border-radius: 50%;
-  background-color: #000;
   position: absolute;
   transform: translate(-50%, -50%);
 }
@@ -998,7 +997,7 @@ textarea {
   content: '';
   top: 50%;
   left: 60%;
-  width: 305px;
+  width: 325px;
   height: 1px;
   background-color: #fff;
   z-index: 1;

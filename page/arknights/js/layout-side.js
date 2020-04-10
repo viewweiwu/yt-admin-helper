@@ -10,6 +10,9 @@ let LayoutSide = {
   methods: {
     handleSelect(type) {
       switch (type) {
+        case 'empty':
+          window.$confirm('尚未实现！');
+          break;
         case 'preview':
           if (!window.fields || !window.fields.length) {
             window.$confirm('发现尚未配置 fields，是否前去配置？').then(() => {
@@ -58,7 +61,7 @@ function getLayoutSideTemplate() {
       </div>
     </div>
     <div class="layout-side-row row-sub">
-      <div class="layout-side-item" tabindex="0">
+      <div class="layout-side-item" tabindex="0" @click="handleSelect('empty')">
         <p class="item-title">编队</p>
         <a-icon icon="fight" />
       </div>
@@ -76,11 +79,11 @@ function getLayoutSideTemplate() {
       <div class="layout-side-item item-blue item-multi">
         <p class="item-name">招募</p>
         <div class="item-multi-content">
-          <div class="item-multi-item" tabindex="0">
+          <div class="item-multi-item" tabindex="0" @click="handleSelect('empty')">
             <p class="item-multi-title">干员中心</p>
             <a-icon icon="material" />
           </div>
-          <div class="item-multi-item" tabindex="0">
+          <div class="item-multi-item" tabindex="0" @click="handleSelect('empty')">
             <p class="item-multi-title">干员寻访</p>
             <a-icon icon="material" />
           </div>
@@ -88,15 +91,15 @@ function getLayoutSideTemplate() {
       </div>
     </div>
     <div class="layout-side-row row-end">
-      <div class="layout-side-item" tabindex="0">
+      <div class="layout-side-item" tabindex="0" @click="handleSelect('empty')">
         <p class="item-title">生成代码</p>
         <a-icon icon="code" />
       </div>
-      <div class="layout-side-item" tabindex="0">
+      <div class="layout-side-item" tabindex="0" @click="handleSelect('empty')">
         <p class="item-title">基建</p>
         <a-icon icon="task" />
       </div>
-      <div class="layout-side-item item-end" tabindex="0">
+      <div class="layout-side-item item-end" tabindex="0" @click="handleSelect('empty')">
         <p class="item-title">仓库</p>
         <a-icon icon="material" />
       </div>
