@@ -352,6 +352,81 @@ ul {
 .iconfont {
   font-size: inherit;
 }
+.a-confirm {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100%;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadein 300ms;
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.a-confirm-content {
+  width: 788px;
+  height: 350px;
+  background-color: #fff;
+  background-image: url(../images/bk.jpg);
+  background-position: 90% 70%;
+  display: flex;
+  flex-direction: column;
+}
+.a-confirm-body {
+  flex: 1;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.a-confirm-footer {
+  height: 60px;
+  display: flex;
+}
+.a-confirm-footer .a-icon {
+  font-size: 32px;
+}
+.a-confirm-footer button {
+  flex: 1;
+  border: none;
+  color: #fff;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  mix-blend-mode: color-burn;
+}
+.a-confirm-footer button:focus {
+  z-index: 1;
+}
+.a-confirm-footer button:hover {
+  filter: brightness(1.2);
+}
+.a-confirm-footer button:active {
+  filter: brightness(0.8);
+}
+.a-confirm-cancel {
+  padding-right: 15%;
+  background-color: #292929;
+  text-align: right;
+}
+.a-confirm-check {
+  padding-left: 15%;
+  background-color: #562626;
+  text-align: left;
+}
 .a-switch {
   width: 120px;
   height: 40px;
@@ -1091,14 +1166,19 @@ textarea {
 .layout-params-header {
   height: 50px;
   position: relative;
-  display: flex;
   align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 .layout-params-header .a-icon {
   top: 50%;
   right: 10px;
   position: absolute;
   transform: translateY(-50%);
+}
+.layout-params-header .btn {
+  height: 30px;
+  line-height: 30px;
 }
 .layout-params-tag-pane {
   flex: 1;

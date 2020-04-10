@@ -5,11 +5,25 @@ let LayoutParams = {
     return {
       visible: false,
       value: '',
-      data: []
+      data: [],
+      search: '',
+      keyword: '',
+      exampleData: `{"sex":{"1":"男","2":"女"}}`
     };
   },
+  computed: {
+    filterList() {
+      let keyword = this.keyword;
+      let data = this.data;
+      if (!keyword.trim()) {
+        return data;
+      } else {
+        return data.filter(item => item.title.includes(keyword) || item.options.some(option => option.label.includes(keyword) || option.value.includes(keyword)));
+      }
+    }
+  },
   methods: {
-    init () {
+    init() {
       let params = localStorage.getItem('params');
       if (params) {
         this.value = params;
@@ -26,10 +40,13 @@ let LayoutParams = {
       this.visible = false;
       this.$emit('hide', true);
     },
-    handleBack () {
+    handleBack() {
       this.$refs.back.handleClick();
     },
-    handleTransfer () {
+    addExampleData() {
+      this.value = this.exampleData;
+    },
+    handleTransfer() {
       try {
         let data = JSON.parse(this.value);
         if (data.obj) {
@@ -49,6 +66,9 @@ let LayoutParams = {
         this.data = list;
         localStorage.setItem('params', this.value);
       } catch {}
+    },
+    handleEnter() {
+      this.keyword = this.search;
     }
   }
 };
@@ -61,7 +81,13 @@ function getLayoutParamsTemplate() {
   <a-back @click="hide" ref="back"></a-back>
   <div class="layout-params-container">
     <div class="layout-params-side">
-      <p class="layout-params-header">请在此处添加上参数枚举：</p>
+      <p class="layout-params-header">
+        <span>请在此处添加上参数枚举：</span>
+        <span class="btns">
+          <a-button @click="value = ''">清空</a-button>
+          <a-button @click="addExampleData">填充测试数据</a-button>
+        </span>
+      </p>
       <textarea v-model="value"></textarea>
     </div>
     <a-button class="layout-params-btn" @click="handleTransfer">
@@ -69,11 +95,11 @@ function getLayoutParamsTemplate() {
     </a-button>
     <div class="layout-params-main">
       <div class="layout-params-header">
-        <input type="search">
+        <input type="search" v-model="search" @keydown.stop.enter="handleEnter">
         <a-icon icon="search"></a-icon>
       </div>
       <div class="layout-params-tag-pane">
-        <div class="layout-params-tag" v-for="item in data">
+        <div class="layout-params-tag" v-for="item in filterList">
           <h3 class="tag-title">{{ item.title }}</h3>
           <ul class="tag-select">
             <li class="tag-options" v-for="option in item.options" :key="option.value">{{ option.value }}: {{ option.label }}</li>

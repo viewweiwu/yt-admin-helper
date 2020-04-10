@@ -1,0 +1,82 @@
+.a-confirm {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100%;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  position: fixed;
+  .flex();
+  animation: fadein 300ms;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.a-confirm-content {
+  width: 788px;
+  height: 350px;
+  background-color: #fff;
+  background-image: url(../images/bk.jpg);
+  background-position: 90% 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.a-confirm-body {
+  flex: 1;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  .flex();
+}
+
+.a-confirm-footer {
+  height: 60px;
+  display: flex;
+
+  .a-icon {
+    font-size: 32px;
+  }
+}
+
+.a-confirm-footer button {
+  flex: 1;
+  border: none;
+  color: #fff;
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  mix-blend-mode: color-burn;
+
+  &:focus {
+    z-index: 1;
+  }
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+
+  &:active {
+    filter: brightness(0.8);
+  }
+}
+
+.a-confirm-cancel {
+  padding-right: 15%;
+  background-color: #292929;
+  text-align: right;
+}
+
+.a-confirm-check {
+  padding-left: 15%;
+  background-color: #562626;
+  text-align: left;
+}

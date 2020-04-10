@@ -9,6 +9,22 @@ let LayoutSide = {
   },
   methods: {
     handleSelect(type) {
+      switch (type) {
+        case 'preview':
+          if (!window.fields || !window.fields.length) {
+            window.$confirm('发现尚未配置 fields，是否前去配置？').then(() => {
+              this.emit(type);
+            });
+          } else {
+            this.emit(type);
+          }
+          break;
+        default:
+          this.emit(type);
+          break;
+      }
+    },
+    emit(type) {
       this.hide();
       window.soundList.confirm.play();
       this.$emit('select', type);

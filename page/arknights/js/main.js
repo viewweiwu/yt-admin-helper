@@ -2,6 +2,8 @@ let Main = {
   data() {
     return {};
   },
+  mounted() {
+  },
   methods: {
     handleSideSelect(type) {
       switch (type) {

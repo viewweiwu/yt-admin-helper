@@ -66,14 +66,13 @@ let LayoutPreview = {
   },
   methods: {
     show() {
-      this.visible = true;
-      console.log(window.fields);
-      if (window.fields) {
+      if (window.fields && window.fields.length) {
         this.fields = window.fields;
+        this.visible = true;
+        this.$nextTick(() => {
+          this.$refs.preview.focus();
+        });
       }
-      this.$nextTick(() => {
-        this.$refs.preview.focus();
-      });
     },
     hide() {
       this.visible = false;
